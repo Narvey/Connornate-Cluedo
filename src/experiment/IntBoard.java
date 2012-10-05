@@ -25,7 +25,7 @@ public class IntBoard {
 		return new LinkedList();
 	}
 	
-	public static int calcIndex(int row, int col) {
+	public int calcIndex(int row, int col) {
 		return 0;
 	}
 }
