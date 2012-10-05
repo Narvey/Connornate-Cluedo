@@ -13,14 +13,14 @@ public class IntBoardTest {
 	public void setup() {
 		board = new IntBoard();
 	}
-	
+
 	@Test
 	public void testCalcIndex() {
 		assertEquals(0, board.calcIndex(0, 0));
 		assertEquals(5, board.calcIndex(1, 1));
 		assertEquals(7, board.calcIndex(1, 3));
 	}
-	
+
 	@Test
 	public void testAdjacency0()
 	{
@@ -29,7 +29,7 @@ public class IntBoardTest {
 		assertTrue(testList.contains(1));
 		assertEquals(2, testList.size());
 	}
-	
+
 	@Test
 	public void testAdjacency5()
 	{
@@ -45,7 +45,7 @@ public class IntBoardTest {
 		assertTrue(board.getAdjList(6).contains(5));
 		assertTrue(board.getAdjList(9).contains(5));		
 	}
-	
+
 	@Test
 	public void testTargets0_3()
 	{
@@ -73,12 +73,12 @@ public class IntBoardTest {
 	@Test
 	public void testTargets9_1()
 	{
-		board.calcTargets(2, 2);
-		TreeSet targets = board.getTargets();
-for (Integer i : targets){
-	
-}
-		assertTrue(targets.contains(10));
+		board.calcTargets(9, 1);
+		TreeSet<Integer> targets = board.getTargets();
+		assertEquals(4, targets.size());
+		for (Integer i : targets){
+			assertTrue(board.getAdjList(2).contains(i));
+		}
 	}
 
 	private IntBoard board;

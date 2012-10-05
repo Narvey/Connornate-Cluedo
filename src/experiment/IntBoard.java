@@ -17,8 +17,8 @@ public class IntBoard {
 		// TODO implement
 	}
 	
-	public TreeSet<int> getTargets() {
-		return new TreeSet<int>();
+	public TreeSet<Integer> getTargets() {
+		return new TreeSet<Integer>();
 	}
 	
 	public LinkedList getAdjList(int cell) {
