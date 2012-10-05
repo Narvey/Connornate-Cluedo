@@ -43,6 +43,19 @@ public class IntBoardTest {
 		assertTrue(targets.contains(3));
 		assertTrue(targets.contains(4));
 	}
+	@Test
+	public void testTargets5_3()
+	{
+		board.calcTargets(0, 3);
+		TreeSet targets = board.getTargets();
+		assertEquals(6, targets.size());
+		assertTrue(targets.contains(12));
+		assertTrue(targets.contains(9));
+		assertTrue(targets.contains(1));
+		assertTrue(targets.contains(6));
+		assertTrue(targets.contains(3));
+		assertTrue(targets.contains(4));
+	}
 
 	private IntBoard board;
 }
