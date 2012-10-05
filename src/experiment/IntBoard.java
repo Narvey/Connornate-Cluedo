@@ -18,14 +18,17 @@ public class IntBoard {
 	}
 	
 	public TreeSet<Integer> getTargets() {
+		// TODO implement
 		return new TreeSet<Integer>();
 	}
 	
-	public LinkedList getAdjList(int cell) {
-		return new LinkedList();
+	public LinkedList<Integer> getAdjList(int cell) {
+		// TODO implement
+		return new LinkedList<Integer>();
 	}
 	
 	public static int calcIndex(int row, int col) {
+		// TODO implement
 		return 0;
 	}
 }

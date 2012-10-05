@@ -45,6 +45,42 @@ public class IntBoardTest {
 		assertTrue(board.getAdjList(6).contains(5));
 		assertTrue(board.getAdjList(9).contains(5));		
 	}
+	@Test
+	public void testAdjacency15()
+	{
+		LinkedList testList = board.getAdjList(15);
+		assertTrue(testList.contains(14));
+		assertTrue(testList.contains(11));
+		assertEquals(2, testList.size());
+	}
+	@Test
+	public void testAdjacency7()
+	{
+		LinkedList testList = board.getAdjList(7);
+		assertTrue(testList.contains(3));
+		assertTrue(testList.contains(6));
+		assertTrue(testList.contains(11));
+		assertEquals(2, testList.size());
+	}
+	@Test
+	public void testAdjacency4()
+	{
+		LinkedList testList = board.getAdjList(4);
+		assertTrue(testList.contains(0));
+		assertTrue(testList.contains(8));
+		assertTrue(testList.contains(5));
+		assertEquals(3, testList.size());
+	}
+	@Test
+	public void testAdjacency10()
+	{
+		LinkedList<Integer> testList = board.getAdjList(10);
+		assertTrue(testList.contains(4));
+		assertTrue(testList.contains(4));
+		assertTrue(testList.contains(1));
+		assertTrue(testList.contains(4));
+		assertEquals(4, testList.size());
+	}
 
 	@Test
 	public void testTargets0_3()
