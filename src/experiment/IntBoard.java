@@ -1,16 +1,24 @@
 package experiment;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.TreeSet;
 
 public class IntBoard {
-
+	private Map<Integer, LinkedList<Integer>> adjacencies;
+	private int COLS;
+	private int ROWS;
+	
 	public IntBoard() {
-		// TODO implement
+		COLS=4;//for now, we hard code these.
+		ROWS=4;//Later, they will be read from a file.  
+		// TODO Do we need more here?
 	}
 	
 	public void calcAdjacencies() {
-		// TODO implement
+		for(int i=0; i<ROWS*COLS;i++){
+			//
+		}
 	}
 	
 	public void calcTargets(int startCell, int steps) {
@@ -28,6 +36,6 @@ public class IntBoard {
 	}
 	
 	public int calcIndex(int row, int col) {
-		return row*4+col;
+		return row*COLS+col;
 	}
 }
