@@ -1,11 +1,11 @@
-f(space, number of moves, seen array, path){
+void f(space, number of moves, seen array){
 	set current to true in seen array
 	add current to path
-	if(path has number of moves){
+	if(number of moves == 0){
 		store current space in targets array  //this array contains the valid move choices.
 	}else{
 		for (each space in list from adjacency map entry){
-			f(space, number of moves, seen array, path)
+			f(space, number of moves, seen array)
 		}
 		remove current from path
 		set current to false in seen array

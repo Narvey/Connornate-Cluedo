@@ -1,5 +1,6 @@
 package experiment;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.TreeSet;
 public class IntBoard {
 	private Map<Integer, LinkedList<Integer>> adjacencies;
 	private Set<Integer> targets;
+	private ArrayList<Boolean> seen;
 	private int COLS;
 	private int ROWS;
 	
@@ -17,6 +19,9 @@ public class IntBoard {
 		ROWS=4;//Later, they will be read from a file.  
 		adjacencies = new TreeMap<Integer, LinkedList<Integer>>();
 		targets = new TreeSet<Integer>();
+		seen = new ArrayList<Boolean>();
+		for(Integer i=0;i<COLS*ROWS;i++)
+			seen.add(false);
 		calcAdjacencies();
 	}
 	
@@ -40,7 +45,19 @@ public class IntBoard {
 	}
 	
 	public void calcTargets(int startCell, int steps) {
-		// TODO implement
+		seen.set(startCell, true);
+		if(steps == 0){
+			targets.add(startCell);
+			seen.set(startCell, false);
+		}else
+		{
+			steps--;
+			for(Integer i : getAdjList(startCell)){
+				if(seen.get(i)==false) //will need extra conditions eventually
+					calcTargets(i, steps);
+			}
+			seen.set(startCell, false);
+		}
 	}
 	
 	public TreeSet<Integer> getTargets() {

@@ -113,7 +113,7 @@ public class IntBoardTest {
 		TreeSet<Integer> targets = board.getTargets();
 		assertEquals(4, targets.size());
 		for (Integer i : targets){
-			assertTrue(board.getAdjList(2).contains(i));
+			assertTrue(board.getAdjList(i).contains(9));
 		}
 	}
 
