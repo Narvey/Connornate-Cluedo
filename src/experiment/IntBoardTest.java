@@ -60,7 +60,7 @@ public class IntBoardTest {
 		assertTrue(testList.contains(3));
 		assertTrue(testList.contains(6));
 		assertTrue(testList.contains(11));
-		assertEquals(2, testList.size());
+		assertEquals(3, testList.size());
 	}
 	@Test
 	public void testAdjacency4()
@@ -75,10 +75,10 @@ public class IntBoardTest {
 	public void testAdjacency10()
 	{
 		LinkedList<Integer> testList = board.getAdjList(10);
-		assertTrue(testList.contains(4));
-		assertTrue(testList.contains(4));
-		assertTrue(testList.contains(1));
-		assertTrue(testList.contains(4));
+		assertTrue(testList.contains(9));
+		assertTrue(testList.contains(6));
+		assertTrue(testList.contains(11));
+		assertTrue(testList.contains(14));
 		assertEquals(4, testList.size());
 	}
 
