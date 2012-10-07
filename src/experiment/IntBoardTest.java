@@ -95,6 +95,7 @@ public class IntBoardTest {
 		assertTrue(targets.contains(3));
 		assertTrue(targets.contains(4));
 	}
+	
 	@Test
 	public void testTargets2_2()
 	{
@@ -106,6 +107,23 @@ public class IntBoardTest {
 		assertTrue(targets.contains(7));
 		assertTrue(targets.contains(10));
 	}
+	
+	@Test
+	public void testTargets_0_5()
+	{
+		board.calcTargets(0, 5);
+		TreeSet<Integer> targets = board.getTargets();
+		assertEquals(8, targets.size());
+		assertTrue(targets.contains(1));
+		assertTrue(targets.contains(3));
+		assertTrue(targets.contains(4));
+		assertTrue(targets.contains(6));
+		assertTrue(targets.contains(9));
+		assertTrue(targets.contains(11));
+		assertTrue(targets.contains(12));
+		assertTrue(targets.contains(14));
+	}
+	
 	@Test
 	public void testTargets9_1()
 	{
