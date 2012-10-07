@@ -24,7 +24,7 @@ public class IntBoardTest {
 	@Test
 	public void testAdjacency0()
 	{
-		LinkedList testList = board.getAdjList(0);
+		LinkedList<Integer> testList = board.getAdjList(0);
 		assertTrue(testList.contains(4));
 		assertTrue(testList.contains(1));
 		assertEquals(2, testList.size());
@@ -33,7 +33,7 @@ public class IntBoardTest {
 	@Test
 	public void testAdjacency5()
 	{
-		LinkedList testList = board.getAdjList(5);
+		LinkedList<Integer> testList = board.getAdjList(5);
 		assertTrue(testList.contains(4));
 		assertTrue(testList.contains(1));
 		assertTrue(testList.contains(6));
@@ -48,7 +48,7 @@ public class IntBoardTest {
 	@Test
 	public void testAdjacency15()
 	{
-		LinkedList testList = board.getAdjList(15);
+		LinkedList<Integer> testList = board.getAdjList(15);
 		assertTrue(testList.contains(14));
 		assertTrue(testList.contains(11));
 		assertEquals(2, testList.size());
@@ -56,7 +56,7 @@ public class IntBoardTest {
 	@Test
 	public void testAdjacency7()
 	{
-		LinkedList testList = board.getAdjList(7);
+		LinkedList<Integer> testList = board.getAdjList(7);
 		assertTrue(testList.contains(3));
 		assertTrue(testList.contains(6));
 		assertTrue(testList.contains(11));
@@ -65,7 +65,7 @@ public class IntBoardTest {
 	@Test
 	public void testAdjacency4()
 	{
-		LinkedList testList = board.getAdjList(4);
+		LinkedList<Integer> testList = board.getAdjList(4);
 		assertTrue(testList.contains(0));
 		assertTrue(testList.contains(8));
 		assertTrue(testList.contains(5));
@@ -86,7 +86,7 @@ public class IntBoardTest {
 	public void testTargets0_3()
 	{
 		board.calcTargets(0, 3);
-		TreeSet targets = board.getTargets();
+		TreeSet<Integer> targets = board.getTargets();
 		assertEquals(6, targets.size());
 		assertTrue(targets.contains(12));
 		assertTrue(targets.contains(9));
@@ -99,7 +99,7 @@ public class IntBoardTest {
 	public void testTargets2_2()
 	{
 		board.calcTargets(2, 2);
-		TreeSet targets = board.getTargets();
+		TreeSet<Integer> targets = board.getTargets();
 		assertEquals(4, targets.size());
 		assertTrue(targets.contains(0));
 		assertTrue(targets.contains(5));
