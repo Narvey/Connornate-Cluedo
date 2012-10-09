@@ -1,0 +1,9 @@
+F,Foundry
+T,Torture chamber
+D,Dungeon
+S,Stables
+A,Apothecary
+R,aRmory
+C,wine Cellar
+O,tOwer
+B,Bedchamber
