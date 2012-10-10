@@ -34,5 +34,16 @@ public class Board {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character,String>();
 	}
-
+	public ArrayList<BoardCell> getCells() {
+		return cells;
+	}
+	public Map<Character, String> getRooms() {
+		return rooms;
+	}
+	public int getNumRows() {
+		return numRows;
+	}
+	public int getNumColumns() {
+		return numColumns;
+	}
 }

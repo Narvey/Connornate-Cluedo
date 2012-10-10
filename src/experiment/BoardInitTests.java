@@ -9,6 +9,7 @@ public class BoardInitTests {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@Test
