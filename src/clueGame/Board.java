@@ -28,10 +28,10 @@ public class Board {
 		return -400;// this SHOULD cause tests to fail.
 	}
 
-	public void getRoomCellAt(int row, int column) {
+	public RoomCell getRoomCellAt(int row, int column) {
 		// A useful function to use to import the game board is
 		// String.split(',');
-
+		return new RoomCell();
 	}
 
 	public ArrayList<BoardCell> getCells() {
