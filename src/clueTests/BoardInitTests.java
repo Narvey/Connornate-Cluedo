@@ -97,5 +97,10 @@ public class BoardInitTests {
 		assertEquals(0,board.calcIndex(0, 0));
 		assertEquals(board.getNumColumns()*board.getNumRows()-1, board.calcIndex(board.getNumRows()-1,board.getNumColumns()-1));
 		assertEquals(board.getNumColumns(),board.calcIndex(1, 0));
+		//The above should be true for any reasonable-size board
+		//the below apply just to our board.
+		assertEquals(207, board.calcIndex(7, 25));
+		assertEquals(143, board.calcIndex(11, 11));
+		assertEquals(441, board.calcIndex(25, 16));
 	}
 }
