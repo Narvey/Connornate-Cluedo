@@ -21,10 +21,4 @@ public class BadConfigFormatException extends Exception {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BadConfigFormatException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
-	}
-
 }
