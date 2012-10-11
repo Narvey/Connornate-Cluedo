@@ -13,6 +13,7 @@ public class Board {
 	public Board() {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
+		loadConfigFiles();
 	}
 
 	public void loadConfigFiles() {
