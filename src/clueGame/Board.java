@@ -18,16 +18,17 @@ public class Board {
 	public void loadConfigFiles() {
 		// A useful function to use to import the game board is
 		// String.split(',');
-
+		loadLegend();
+		loadBoard();
 	}
 
-	public int calcIndex(int rowNum, int columnNum) {
+	public int calcIndex(int row, int column) {
 		// A useful function to use to import the game board is
 		// String.split(',');
 		return -400;// this SHOULD cause tests to fail.
 	}
 
-	public void GetRoomCellAt() {
+	public void getRoomCellAt(int row, int column) {
 		// A useful function to use to import the game board is
 		// String.split(',');
 
@@ -47,5 +48,13 @@ public class Board {
 
 	public int getNumColumns() {
 		return numColumns;
+	}
+	
+	private void loadLegend() {
+		
+	}
+	
+	private void loadBoard() {
+		
 	}
 }
