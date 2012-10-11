@@ -42,8 +42,24 @@ public class BoardInitTests {
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
 		
-		room = board.getRoomCellAt(4, 0);
+		room = board.getRoomCellAt(13, 7);
 		assertTrue(room.isDoorway());
-		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
+		
+		room = board.getRoomCellAt(16, 10);
+		assertTrue(room.isDoorway());
+		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
+		
+		room = board.getRoomCellAt(21, 12);
+		assertTrue(room.isDoorway());
+		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
+		
+		// check a room cell is not a doorway
+		room = board.getRoomCellAt(0, 0);
+		assertFalse(room.isDoorway());
+		
+		// check a walkway is not a doorway
+		BoardCell cell = board.getCellAt(board.calcIndex(0,5));
+		assertFalse(cell.isDoorway());
 	}
 }

@@ -33,6 +33,10 @@ public class Board {
 		// String.split(',');
 		return new RoomCell();
 	}
+	
+	public BoardCell getCellAt(int cell) {
+		return new RoomCell();
+	}
 
 	public ArrayList<BoardCell> getCells() {
 		return cells;
