@@ -1,4 +1,4 @@
-package clue;
+package clueGame;
 
 import java.util.ArrayList;
 import java.util.HashMap;

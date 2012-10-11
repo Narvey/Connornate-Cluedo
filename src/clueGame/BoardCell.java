@@ -1,4 +1,4 @@
-package clue;
+package clueGame;
 
 public abstract class BoardCell {
 	private char cellType;
