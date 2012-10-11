@@ -21,9 +21,10 @@ public class BoardInitTests {
 
 	@Test
 	public void testCalcIndex() {
-		assertEquals(3, brd.calcIndex(1, 4));
-		assertEquals(0,brd.calcIndex(1, 1));
-		assertEquals(brd.getNumColumns(),brd.calcIndex(2, 1));
+		assertEquals(3, brd.calcIndex(0, 3));
+		assertEquals(0,brd.calcIndex(0, 0));
+		assertEquals(brd.getNumColumns()*brd.getNumRows()-1, brd.calcIndex(brd.getNumRows()-1,brd.getNumColumns()-1));
+		assertEquals(brd.getNumColumns(),brd.calcIndex(1, 0));
 	}
 
 	@Test
