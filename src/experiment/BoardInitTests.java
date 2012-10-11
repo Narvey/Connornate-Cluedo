@@ -5,11 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BoardInitTests {
+import clue.Board;
 
+public class BoardInitTests {
+	Board brd;
 	@Before
 	public void setUp() throws Exception {
-		
+		brd = new Board();
 	}
 
 	@Test
@@ -19,7 +21,9 @@ public class BoardInitTests {
 
 	@Test
 	public void testCalcIndex() {
-		fail("Not yet implemented");
+		assertEquals(3, brd.calcIndex(1, 4));
+		assertEquals(0,brd.calcIndex(1, 1));
+		assertEquals(brd.getNumColumns(),brd.calcIndex(2, 1));
 	}
 
 	@Test
