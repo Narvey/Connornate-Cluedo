@@ -62,4 +62,13 @@ public class BoardInitTests {
 		BoardCell cell = board.getCellAt(board.calcIndex(0,5));
 		assertFalse(cell.isDoorway());
 	}
+	
+	@Test
+	public void testCalcIndex() {
+		assertEquals(3, board.calcIndex(0, 3));
+		assertEquals(0,board.calcIndex(0, 0));
+		assertEquals(board.getNumColumns()*board.getNumRows()-1, board.calcIndex(board.getNumRows()-1,board.getNumColumns()-1));
+		assertEquals(board.getNumColumns(),board.calcIndex(1, 0));
+	}
+
 }
