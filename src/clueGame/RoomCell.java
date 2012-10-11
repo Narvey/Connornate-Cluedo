@@ -1,26 +1,24 @@
 package clueGame;
 
-
 public class RoomCell extends BoardCell {
 
-	enum DoorDirection{
-		NORTH,SOUTH,EAST,WEST,NONE
+	enum DoorDirection {
+		NORTH, SOUTH, EAST, WEST, NONE
 	}
+
 	DoorDirection dir;
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
-
-	public boolean isRoom(){
+	@Override
+	public boolean isRoom() {
 		return true;
 	}
-	public boolean isDoorway(){
-		if(true){ 
+
+	@Override
+	public boolean isDoorway() {
+		if (true) {
 			return true;
-		}else return false;
+		} else {
+			return false;
+		}
 	}
 }
