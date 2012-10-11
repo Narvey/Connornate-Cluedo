@@ -7,14 +7,14 @@ public class RoomCell extends BoardCell {
 	}
 
 	private DoorDirection doorDirection;
-	private char roomInitial;
+	private char initial;
 	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
 
-	public char getRoomInitial() {
-		return roomInitial;
+	public char getInitial() {
+		return initial;
 	}
 
 	@Override

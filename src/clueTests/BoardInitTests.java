@@ -37,29 +37,57 @@ public class BoardInitTests {
 	}
 	
 	@Test
-	public void testDoors() {
+	public void testDoorDirections() {
 		RoomCell room = board.getRoomCellAt(4, 0);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
 		
-		room = board.getRoomCellAt(13, 7);
+		room = board.getRoomCellAt(7, 13);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
 		
-		room = board.getRoomCellAt(16, 10);
+		room = board.getRoomCellAt(10, 16);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 		
-		room = board.getRoomCellAt(21, 12);
+		room = board.getRoomCellAt(12, 21);
 		assertTrue(room.isDoorway());
-		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
-		
+		assertEquals(RoomCell.DoorDirection.LEFT, room.getDoorDirection());	
+	}
+	
+	@Test
+	public void testDoorStatus() {
 		// check a room cell is not a doorway
-		room = board.getRoomCellAt(0, 0);
-		assertFalse(room.isDoorway());
+		BoardCell cell = board.getRoomCellAt(0, 0);
+		assertFalse(cell.isDoorway());
 		
 		// check a walkway is not a doorway
-		BoardCell cell = board.getCellAt(board.calcIndex(0,5));
+		cell = board.getCellAt(board.calcIndex(0,5));
 		assertFalse(cell.isDoorway());
+	}
+	
+	// Test that we have the correct number of doors
+	@Test
+	public void testNumberOfDoorways() 
+	{
+		int numDoors = 0;
+		int totalCells = board.getNumColumns() * board.getNumRows();
+		assertEquals(676, totalCells);
+		for (int i = 0; i < totalCells; i++)
+		{
+			BoardCell cell = board.getCellAt(i);
+			if (cell.isDoorway())
+				numDoors++;
+		}
+		assertEquals(26, numDoors);
+	}
+	
+	@Test
+	public void testRoomInitials() {
+		assertEquals('T', board.getRoomCellAt(0, 0).getInitial());
+		assertEquals('F', board.getRoomCellAt(0, 8).getInitial());
+		assertEquals('B', board.getRoomCellAt(12, 12).getInitial());
+		assertEquals('C', board.getRoomCellAt(0, 24).getInitial());
+		assertEquals('D', board.getRoomCellAt(25, 10).getInitial());
 	}
 }
