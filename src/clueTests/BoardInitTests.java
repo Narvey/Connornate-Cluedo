@@ -22,7 +22,7 @@ public class BoardInitTests {
 	@Test
 	public void testRooms() {
 		Map<Character, String> rooms = board.getRooms();
-		assertEquals(9, rooms.size());
+		assertEquals(11, rooms.size());
 		assertEquals("Torture chamber", rooms.get('T'));
 		assertEquals("Foundry", rooms.get('F'));
 		assertEquals("Dungeon", rooms.get('D'));
