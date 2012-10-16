@@ -19,8 +19,8 @@ public class Board {
 	public Board() {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
-		LegendFile="legend.csv";
-		BoardFile="board.csv";
+		LegendFile = "legend.csv";
+		BoardFile = "board.csv";
 		loadConfigFiles();
 	}
 
@@ -38,7 +38,7 @@ public class Board {
 	}
 
 	public BoardCell getCellAt(int cell) {
-		return new RoomCell(1,2);
+		return new RoomCell(1, 2);
 	}
 
 	public ArrayList<BoardCell> getCells() {
@@ -58,41 +58,44 @@ public class Board {
 	}
 
 	private void loadLegend() {
-		char abbr; //the abbreviation for the room
-		String room; //the full name of the room
-		try{
+		char abbr; // the abbreviation for the room
+		String room; // the full name of the room
+		try {
 			FileReader f = new FileReader(LegendFile);
 			scan = new Scanner(f);
-			while(scan.hasNext(/*"A-Z,[A-Za-z]*"*/)){//TODO Connor, help with regex!!
-				room =scan.nextLine();
+			while (scan.hasNext(/* "A-Z,[A-Za-z]*" */)) {// TODO Connor, help
+															// with regex!!
+				room = scan.nextLine();
 				abbr = room.charAt(0);
-				room = room.substring(2);//trim off the abbreviation and comma.
+				room = room.substring(2);// trim off the abbreviation and comma.
 				rooms.put(abbr, room);
 			}
-		}catch(FileNotFoundException e){
-			System.out.println("I'm sorry, but the "+LegendFile+" file is a figment of your imagination.");
+		} catch (FileNotFoundException e) {
+			System.out.println("I'm sorry, but the " + LegendFile
+					+ " file is a figment of your imagination.");
 			System.out.println(e.getMessage());
 		}
 	}
 
 	private void loadBoard() {
-		//String line = new String();
+		// String line = new String();
 		String[] spaces;
-		try{
+		try {
 			FileReader f = new FileReader(BoardFile);
 			scan = new Scanner(f);
-			while(scan.hasNextLine()){
+			while (scan.hasNextLine()) {
 				numRows++;
-				spaces=scan.nextLine().split(",");
-				numColumns=spaces.length;
-				for(int i=0;i<numColumns;i++){
-					//TODO add better logic
-					cells.add(new RoomCell(i,numRows));
+				spaces = scan.nextLine().split(",");
+				numColumns = spaces.length;
+				for (int i = 0; i < numColumns; i++) {
+					// TODO add better logic
+					cells.add(new RoomCell(i, numRows));
 				}
 
 			}
-		}catch(FileNotFoundException e){
-			System.out.println("I'm sorry, but the "+BoardFile+" file is a figment of your imagination.");
+		} catch (FileNotFoundException e) {
+			System.out.println("I'm sorry, but the " + BoardFile
+					+ " file is a figment of your imagination.");
 		}
 
 	}

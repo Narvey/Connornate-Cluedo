@@ -8,11 +8,12 @@ public class RoomCell extends BoardCell {
 
 	private DoorDirection doorDirection;
 	private char initial;
-	
-	public RoomCell(int col, int ro){
-		column=col;
-		row=ro;
+
+	public RoomCell(int col, int ro) {
+		column = col;
+		row = ro;
 	}
+
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
