@@ -17,6 +17,7 @@ public class BoardInitTests {
 	@BeforeClass
 	public static void setup() {
 		board = new Board();
+		board.loadConfigFiles("legend.csv", "board.csv");
 	}
 
 	@Test
