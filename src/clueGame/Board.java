@@ -34,11 +34,11 @@ public class Board {
 	}
 
 	public RoomCell getRoomCellAt(int row, int column) {
-		return new RoomCell();
+		return new RoomCell(row, column);
 	}
 
 	public BoardCell getCellAt(int cell) {
-		return new RoomCell();
+		return new RoomCell(1,2);
 	}
 
 	public ArrayList<BoardCell> getCells() {
@@ -68,24 +68,29 @@ public class Board {
 				abbr = room.charAt(0);
 				room = room.substring(2);//trim off the abbreviation and comma.
 				rooms.put(abbr, room);
-				System.out.println("Should be: "+abbr+','+room+" Is: "+rooms.get(abbr));
 			}
 		}catch(FileNotFoundException e){
 			System.out.println("I'm sorry, but the "+LegendFile+" file is a figment of your imagination.");
+			System.out.println(e.getMessage());
 		}
 	}
 
 	private void loadBoard() {
-		String WholeBoard = new String();
+		//String line = new String();
 		String[] spaces;
 		try{
 			FileReader f = new FileReader(BoardFile);
 			scan = new Scanner(f);
 			while(scan.hasNextLine()){
-				WholeBoard.concat(scan.nextLine()+"\n");
+				numRows++;
+				spaces=scan.nextLine().split(",");
+				numColumns=spaces.length;
+				for(int i=0;i<numColumns;i++){
+					//TODO add better logic
+					cells.add(new RoomCell(i,numRows));
+				}
+
 			}
-			spaces = WholeBoard.split(",");
-			//go through the array.
 		}catch(FileNotFoundException e){
 			System.out.println("I'm sorry, but the "+BoardFile+" file is a figment of your imagination.");
 		}
