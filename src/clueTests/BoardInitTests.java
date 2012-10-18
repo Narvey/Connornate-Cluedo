@@ -102,6 +102,6 @@ public class BoardInitTests {
 		// the below apply just to our board.
 		assertEquals(207, board.calcIndex(7, 25));
 		assertEquals(143, board.calcIndex(11, 11));
-		assertEquals(441, board.calcIndex(25, 16));
+		assertEquals(441, board.calcIndex(16, 25));
 	}
 }
