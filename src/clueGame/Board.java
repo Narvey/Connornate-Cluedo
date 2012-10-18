@@ -11,12 +11,13 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.Set;
 
+import clueGame.RoomCell.DoorDirection;
+
 public class Board {
 	ArrayList<BoardCell> cells;
 	Map<Character, String> rooms;
 	int numRows;
 	int numColumns;
-	Scanner scan;
 	private Map<Integer, LinkedList<Integer>> adjacencies;
 	private Set<BoardCell> targets;
 	private boolean[] seen;
@@ -28,7 +29,7 @@ public class Board {
 		seen = new boolean[numRows*numColumns];
 	}
 
-	public void loadConfigFiles(String legendFile, String boardFile) {
+	public void loadConfigFiles(String legendFile, String boardFile) throws BadConfigFormatException {
 		loadLegend(legendFile);
 		loadBoard(boardFile);
 	}
@@ -41,11 +42,17 @@ public class Board {
 		return adjacencies.get(index);
 	}
 	public RoomCell getRoomCellAt(int row, int column) {
-		return new RoomCell(row, column);
+		BoardCell cell = cells.get(calcIndex(row, column));
+		if (cell instanceof RoomCell) {
+			return (RoomCell)cell;
+		}
+		else {
+			return null;
+		}
 	}
 
 	public BoardCell getCellAt(int cell) {
-		return new RoomCell(1, 2);
+		return cells.get(cell);
 	}
 
 	public ArrayList<BoardCell> getCells() {
@@ -64,7 +71,7 @@ public class Board {
 		return numColumns;
 	}
 
-	private void loadLegend(String legendFile) {
+	private void loadLegend(String legendFile) throws BadConfigFormatException {
 		Pattern legendLine = Pattern.compile("[a-z],[a-z ]+", Pattern.CASE_INSENSITIVE);
 
 		try {
@@ -76,6 +83,11 @@ public class Board {
 				String room = line.substring(2); // trim off the abbreviation and comma to get the full name
 				rooms.put(abbr, room);
 			}
+
+			// if there is input remaining, the file format is invalid
+			if (scan.hasNext()) {
+				throw new BadConfigFormatException();
+			}
 		} catch (FileNotFoundException e) {
 			System.out.println("I'm sorry, but the " + legendFile
 					+ " file is a figment of your imagination.");
@@ -83,21 +95,57 @@ public class Board {
 		}
 	}
 
-	private void loadBoard(String boardFile) {
-		// String line = new String();
+	private void loadBoard(String boardFile) throws BadConfigFormatException {
+		numRows = 0;
+		numColumns = -1;
 		String[] spaces;
 		try {
 			FileReader f = new FileReader(boardFile);
 			Scanner scan = new Scanner(f);
 			while (scan.hasNextLine()) {
-				numRows++;
 				spaces = scan.nextLine().split(",");
-				numColumns = spaces.length;
-				for (int i = 0; i < numColumns; i++) {
-					// TODO add better logic
-					cells.add(new RoomCell(i, numRows));
+
+				// if the number of columns changes, the file is invalid
+				if (numColumns != -1 && numColumns != spaces.length) {
+					throw new BadConfigFormatException("Inconsistent number of spaces in row " + numRows);
 				}
 
+				numColumns = spaces.length;
+
+				for (int i = 0; i < numColumns; i++) {
+					String space = spaces[i];
+					if (space.equalsIgnoreCase("W")) {
+						cells.add(new WalkwayCell(numRows, i % numColumns));
+					}
+					else {
+						if (space.length() > 0 && space.length() <= 2) {
+							char initial = space.charAt(0);
+
+							if (!rooms.containsKey(initial)) {
+								throw new BadConfigFormatException("Invalid room initial '" + initial + '"');
+							}
+
+							DoorDirection direction = DoorDirection.NONE;
+
+							if (space.length() > 1) {
+								switch (space.charAt(1)) {
+								case 'R': direction = DoorDirection.RIGHT; break;
+								case 'L': direction = DoorDirection.LEFT; break;
+								case 'U': direction = DoorDirection.UP; break;
+								case 'D': direction = DoorDirection.DOWN; break;
+								default: throw new BadConfigFormatException("Invalid room direction '" + space.charAt(1) + "'");
+								}
+							}
+
+							cells.add(new RoomCell(numRows, i % numColumns, initial, direction));
+						}
+						else {
+							throw new BadConfigFormatException("Wrong length of room '" + space + "'");
+						}
+					}
+				}
+
+				numRows++;
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("I'm sorry, but the " + boardFile

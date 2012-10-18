@@ -9,9 +9,11 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection;
 	private char initial;
 
-	public RoomCell(int col, int ro) {
-		column = col;
-		row = ro;
+	public RoomCell(int row, int column, char initial, DoorDirection doorDirection) {
+		this.row = row;
+		this.column = column;
+		this.initial = initial;
+		this.doorDirection = doorDirection;
 	}
 
 	public DoorDirection getDoorDirection() {
