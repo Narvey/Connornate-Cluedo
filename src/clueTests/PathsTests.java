@@ -238,20 +238,55 @@ public class PathsTests {
 	@Test
 	public void testTargetsT7()
 	{
-		brd.calcTargets(brd.calcIndex(2, 15), 3);
+		brd.calcTargets(brd.calcIndex(6, 19), 4);
 		HashSet<BoardCell> targets = (HashSet<BoardCell>) brd.getTargets();
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 14))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(2, 14))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 14))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(1, 15))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(3, 15))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 15))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 16))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(2, 16))));
-		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 16))));
-		assertEquals(9, targets.size());
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(6, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(6, 17))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(6, 21))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(6, 23))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 17))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 19))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 21))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 16))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 18))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 20))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 22))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(7, 16))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(7, 18))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(7, 20))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(7, 22))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(8, 17))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(8, 19))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(8, 21))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(9, 18))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(9, 20))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(10, 19))));
+		assertEquals(21, targets.size());
 	}
 	
+	@Test
+	public void testTargetsZ18()
+	{
+		brd.calcTargets(brd.calcIndex(17, 25), 1);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) brd.getTargets();
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(18, 25))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(17, 24))));
+		assertEquals(2, targets.size());
+	}
+	@Test
+	public void testTargetsH9()
+	{
+		brd.calcTargets(brd.calcIndex(8, 7), 3);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) brd.getTargets();
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(9, 7))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(8, 8))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(8, 10))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(9, 9))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(10, 8))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(11, 7))));
+		assertEquals(6, targets.size());
+	}
+
 	
 	
 	
