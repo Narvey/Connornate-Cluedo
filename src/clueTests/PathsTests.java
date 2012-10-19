@@ -28,6 +28,7 @@ public class PathsTests {
 		assertEquals(board.getNumColumns(), board.calcIndex(1, 0)); 
 		assertEquals(363, board.calcIndex(13,board.getNumColumns()-1));
 		assertEquals(board.calcIndex(25, 25),board.getNumColumns()*board.getNumRows()-1);
+		assertEquals(363, board.calcIndex(13, 25));
 	}
 	/////////////////////////////////////////
 	//edges and corners
@@ -62,8 +63,8 @@ public class PathsTests {
 	{
 		LinkedList<Integer> testList = board.getAdjList(363);
 		assertTrue(testList.contains(362));
-		assertTrue(testList.contains(board.calcIndex(12, 26)));
-		assertTrue(testList.contains(board.calcIndex(14, 26)));
+		assertTrue(testList.contains(board.calcIndex(12, 25)));
+		assertTrue(testList.contains(board.calcIndex(14, 25)));
 		assertEquals(3, testList.size());
 	}
 	@Test
@@ -101,7 +102,7 @@ public class PathsTests {
 	{
 		LinkedList<Integer> testList = board.getAdjList(board.calcIndex(1, 22));
 		assertTrue(testList.contains(board.calcIndex(1, 23)));
-		assertTrue(testList.contains(board.calcIndex(1, 24)));
+		assertTrue(testList.contains(board.calcIndex(1, 21)));
 		assertTrue(testList.contains(board.calcIndex(2, 22)));
 		assertTrue(testList.contains(board.calcIndex(0, 22)));
 		assertEquals(4, testList.size());
@@ -142,18 +143,6 @@ public class PathsTests {
 		assertEquals(4, testList.size());
 	}
 
-/*  This one is not real.  it is just a template:
-	@Test
-	public void testAdjacencyW6()
-	{
-		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(22, 22));
-		assertTrue(testList.contains(brd.calcIndex(22, 23)));
-		assertTrue(testList.contains(brd.calcIndex(22, 24)));
-		assertTrue(testList.contains(brd.calcIndex(22, 22)));
-		assertTrue(testList.contains(brd.calcIndex(22, 22)));
-		assertEquals(4, testList.size());
-	}
-*/
 	/////////////////////////////////////////
 	//by doorways
 

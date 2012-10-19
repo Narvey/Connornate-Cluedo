@@ -160,19 +160,19 @@ public class Board {
 			int column = i % numColumns;
 			int row = i / numColumns;
 
-			if (column > 0) { // left
+			if (column > 0 && (getCellAt(i-1).getClass().equals(getCellAt(i).getClass()))) { // left
 				cells.add(i - 1);
 			}
 
-			if (column < numColumns - 1) { // right
+			if (column < numColumns - 1 && (getCellAt(i+1).getClass().equals(getCellAt(i).getClass()))) { // right
 				cells.add(i + 1);
 			}
 
-			if (row > 0) { // up
+			if (row > 0 && (getCellAt(i-numColumns).getClass().equals(getCellAt(i).getClass()))) { // up
 				cells.add(i - numColumns);
 			}
 
-			if (row < numRows - 1) { // down
+			if (row < numRows - 1 && (getCellAt(i+numColumns).getClass().equals(getCellAt(i).getClass()))) { // down
 				cells.add(i + numColumns);
 			}
 
