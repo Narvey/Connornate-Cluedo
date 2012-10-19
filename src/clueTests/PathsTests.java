@@ -294,7 +294,24 @@ public class PathsTests {
 		assertEquals(8, targets.size());
 	}
 	
+	// ***********************
+	// Targets leaving room
+	@Test
+	public void testTargetsN23() {
+		board.calcTargets(board.calcIndex(22, 13), 2);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(23, 12))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(23, 14))));
+		assertEquals(2, targets.size());
+	}
 	
-	// ///connor work below this line
+	@Test
+	public void testTargetsN8() {
+		board.calcTargets(board.calcIndex(7, 13), 1);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 14))));
+		assertEquals(1, targets.size());
+	}
+	
 
 }
