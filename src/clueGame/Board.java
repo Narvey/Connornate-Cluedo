@@ -156,31 +156,43 @@ public class Board {
 	public void calcAdjacencies() {//TODO ripped from IntBoard.java
 		for (int i = 0; i < numRows * numColumns; i++) {
 			LinkedList<Integer> cells = new LinkedList<Integer>();
-
 			int column = i % numColumns;
 			int row = i / numColumns;
-
-			if (column > 0 && (getCellAt(i-1).getClass().equals(getCellAt(i).getClass()))) { // left
+			BoardCell by; 
+			if(column>0){
+				by = getCellAt(i-1);//the cell to the left 
+			
+			if (by.getClass().equals(getCellAt(i).getClass()) || 
+					(getCellAt(i-1).isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.RIGHT)) {
 				cells.add(i - 1);
-			}
-
-			if (column < numColumns - 1 && (getCellAt(i+1).getClass().equals(getCellAt(i).getClass()))) { // right
+			}}
+			if (column < numColumns - 1){
+			by = getCellAt(i+1);//the cell to the right
+			if (by.getClass().equals(getCellAt(i).getClass())|| 
+					(by.isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.LEFT)) { 
 				cells.add(i + 1);
-			}
-
-			if (row > 0 && (getCellAt(i-numColumns).getClass().equals(getCellAt(i).getClass()))) { // up
+			}}
+			if (row > 0){
+			by = getCellAt(i-numColumns);//the cell above
+			if (by.getClass().equals(getCellAt(i).getClass())|| 
+					(by.isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.UP)) { 
 				cells.add(i - numColumns);
-			}
-
-			if (row < numRows - 1 && (getCellAt(i+numColumns).getClass().equals(getCellAt(i).getClass()))) { // down
+			}}
+			if (row < numRows - 1){ 
+			by = getCellAt(i+numColumns);//the cell below
+			if (by.getClass().equals(getCellAt(i).getClass())|| 
+					(by.isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.DOWN)) { 
 				cells.add(i + numColumns);
-			}
-
+			}}
 			adjacencies.put(i, cells);
 		}
 	}
 
 		public void calcTargets(int startCell, int steps) {
+			if(!Thread.currentThread().getStackTrace()[2].getMethodName().equalsIgnoreCase("calcTargets")){
+				//if this is NOT a recurse
+				targets.clear();//reset targets calculated last time
+			}
 			seen[startCell] = true;
 			if (steps == 0) {
 				targets.add(getCellAt(startCell));
