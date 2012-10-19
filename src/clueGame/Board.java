@@ -72,21 +72,21 @@ public class Board {
 	}
 
 	private void loadLegend(String legendFile) throws BadConfigFormatException {
-		Pattern legendLine = Pattern.compile("[a-z],[a-z ]+", Pattern.CASE_INSENSITIVE);
+		Pattern legendLine = Pattern.compile("[A-Z],[A-Za-z ]+");
 
 		try {
 			FileReader f = new FileReader(legendFile);
 			Scanner scan = new Scanner(f);
-			while (scan.hasNext(legendLine)) {
-				String line = scan.nextLine();
-				char abbr = line.charAt(0); // the abbreviation for the room
-				String room = line.substring(2); // trim off the abbreviation and comma to get the full name
-				rooms.put(abbr, room);
-			}
+			while (scan.hasNextLine()) {
+				String line = scan.nextLine().trim();
 
-			// if there is input remaining, the file format is invalid
-			if (scan.hasNext()) {
-				throw new BadConfigFormatException();
+				if (!legendLine.matcher(line).matches()) {
+					throw new BadConfigFormatException("Invalid legend line '" + line + "'");
+				}
+
+				char abbr = line.charAt(0); // the abbreviation for the room
+				String room = line.substring(2).trim(); // trim off the abbreviation and comma to get the full name
+				rooms.put(abbr, room);
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("I'm sorry, but the " + legendFile

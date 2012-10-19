@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.RoomCell;
@@ -24,8 +25,9 @@ public class BoardInitTests {
 	public static final int NUM_COLUMNS = 23;
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws BadConfigFormatException {
 		board = new Board();
+		board.loadConfigFiles("CR-ClueLegend.txt", "CR-ClueLayout.csv");
 	}
 	@Test
 	public void testRooms() {
