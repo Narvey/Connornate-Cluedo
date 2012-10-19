@@ -36,7 +36,7 @@ public class Board {
 	}
 
 	public int calcIndex(int row, int column) {
-		return row*numColumns+column;
+		return row*numColumns + column;
 	}
 	public LinkedList<Integer> getAdjList(int index){
 		//return adjacencies.get(index);
