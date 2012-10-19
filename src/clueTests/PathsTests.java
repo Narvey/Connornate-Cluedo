@@ -24,9 +24,10 @@ public class PathsTests {
 	public void ThisTestNeedsToPass(){//for scratch work.  not to be graded.
 		assertEquals(brd.getNumColumns(), brd.calcIndex(1, 0)); 
 		assertEquals(363, brd.calcIndex(13,brd.getNumColumns()-1));
-		assertEquals(brd.getNumColumns(), brd.calcIndex(1, 0));
+		assertEquals(brd.calcIndex(25, 25),brd.getNumColumns()*brd.getNumRows()-1);
 	}
-	
+	/////////////////////////////////////////
+	//edges and corners
 	@Test
 	public void testAdjacencyA1()//These are named after the cell in the spreadsheet
 	{
@@ -63,25 +64,159 @@ public class PathsTests {
 		assertEquals(3, testList.size());
 	}
 	@Test
-	public void testAdjacency4()
+	public void testAdjacencyN26()
 	{
-		LinkedList<Integer> testList = brd.getAdjList(4);
-		assertTrue(testList.contains(0));
-		assertTrue(testList.contains(8));
-		assertTrue(testList.contains(5));
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(25, 11));
+		assertTrue(testList.contains(brd.calcIndex(24, 11)));
+		assertTrue(testList.contains(brd.calcIndex(25, 10)));
+		assertTrue(testList.contains(brd.calcIndex(25, 12)));
 		assertEquals(3, testList.size());
 	}
 	@Test
-	public void testAdjacency10()
+	public void testAdjacencyZ26()
 	{
-		LinkedList<Integer> testList = brd.getAdjList(10);
-		assertTrue(testList.contains(9));
-		assertTrue(testList.contains(6));
-		assertTrue(testList.contains(11));
-		assertTrue(testList.contains(14));
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(25, 25));
+		assertTrue(testList.contains(brd.getNumColumns()*brd.getNumRows()-2));
+		assertTrue(testList.contains(brd.calcIndex(24, 25)));
+		assertEquals(2, testList.size());
+	}
+	/////////////////////////////////////////
+	//surrounded by room cells
+	@Test
+	public void testAdjacencyJ4()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(3, 9));
+		assertTrue(testList.contains(brd.calcIndex(3, 10)));
+		assertTrue(testList.contains(brd.calcIndex(3, 8)));
+		assertTrue(testList.contains(brd.calcIndex(2, 9)));
+		assertTrue(testList.contains(brd.calcIndex(4, 9)));
+		assertEquals(4, testList.size());
+	}
+	
+	@Test
+	public void testAdjacencyW2()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(1, 22));
+		assertTrue(testList.contains(brd.calcIndex(1, 23)));
+		assertTrue(testList.contains(brd.calcIndex(1, 24)));
+		assertTrue(testList.contains(brd.calcIndex(2, 22)));
+		assertTrue(testList.contains(brd.calcIndex(0, 22)));
+		assertEquals(4, testList.size());
+	}
+	/////////////////////////////////////////
+	//surrounded by walkway cells
+	
+	@Test
+	public void testAdjacencyW6()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(5, 22));
+		assertTrue(testList.contains(brd.calcIndex(5, 23)));
+		assertTrue(testList.contains(brd.calcIndex(5, 21)));
+		assertTrue(testList.contains(brd.calcIndex(4, 22)));
+		assertTrue(testList.contains(brd.calcIndex(6, 22)));
 		assertEquals(4, testList.size());
 	}
 
+	@Test
+	public void testAdjacencyR19()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(18, 17));
+		assertTrue(testList.contains(brd.calcIndex(18, 16)));
+		assertTrue(testList.contains(brd.calcIndex(18, 18)));
+		assertTrue(testList.contains(brd.calcIndex(17, 17)));
+		assertTrue(testList.contains(brd.calcIndex(19, 17)));
+		assertEquals(4, testList.size());
+	}
+	
+	@Test
+	public void testAdjacencyQ9()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(8, 16));
+		assertTrue(testList.contains(brd.calcIndex(9, 16)));
+		assertTrue(testList.contains(brd.calcIndex(7, 16)));
+		assertTrue(testList.contains(brd.calcIndex(8, 17)));
+		assertTrue(testList.contains(brd.calcIndex(8, 15)));
+		assertEquals(4, testList.size());
+	}
+
+/*  This one is not real.  it is just a template:
+	@Test
+	public void testAdjacencyW6()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(22, 22));
+		assertTrue(testList.contains(brd.calcIndex(22, 23)));
+		assertTrue(testList.contains(brd.calcIndex(22, 24)));
+		assertTrue(testList.contains(brd.calcIndex(22, 22)));
+		assertTrue(testList.contains(brd.calcIndex(22, 22)));
+		assertEquals(4, testList.size());
+	}
+*/
+	/////////////////////////////////////////
+	//by doorways
+
+	public void testAdjacencyU15()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(14, 20));
+		assertTrue(testList.contains(brd.calcIndex(14, 19)));
+		assertTrue(testList.contains(brd.calcIndex(14, 21)));
+		assertTrue(testList.contains(brd.calcIndex(13, 20)));
+		assertTrue(testList.contains(brd.calcIndex(15, 20)));
+		assertEquals(4, testList.size());
+	}
+
+	public void testAdjacencyW18()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(17, 22));
+		assertTrue(testList.contains(brd.calcIndex(17, 21)));
+		assertTrue(testList.contains(brd.calcIndex(17, 23)));
+		assertEquals(2, testList.size());
+	}
+
+	public void testAdjacencyA6()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(5, 0));
+		assertTrue(testList.contains(brd.calcIndex(5, 1)));
+		assertTrue(testList.contains(brd.calcIndex(4, 0)));
+		assertEquals(2, testList.size());
+	}
+
+	/////////////////////////////////////////
+	//by rooms but not doorways
+
+	@Test
+	public void testAdjacencyJ7()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(6, 9));
+		assertTrue(testList.contains(brd.calcIndex(6, 8)));
+		assertTrue(testList.contains(brd.calcIndex(6, 10)));
+		assertTrue(testList.contains(brd.calcIndex(5, 9)));
+		assertEquals(3, testList.size());
+	}
+
+	@Test
+	public void testAdjacencyJ13()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(12, 9));
+		assertTrue(testList.contains(brd.calcIndex(12, 8)));
+		assertTrue(testList.contains(brd.calcIndex(13, 9)));
+		assertTrue(testList.contains(brd.calcIndex(11, 9)));
+		assertEquals(3, testList.size());
+	}
+
+
+	@Test
+	public void testAdjacencyQ21()
+	{
+		LinkedList<Integer> testList = brd.getAdjList(brd.calcIndex(20, 16));
+		assertTrue(testList.contains(brd.calcIndex(20, 17)));
+		assertTrue(testList.contains(brd.calcIndex(21, 16)));
+		assertTrue(testList.contains(brd.calcIndex(19, 16)));
+		assertEquals(3, testList.size());
+	}
+
+	
+	
+	
 	@Test
 	public void testTargets0_3()
 	{
