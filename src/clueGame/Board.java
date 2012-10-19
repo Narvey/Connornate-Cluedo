@@ -32,21 +32,22 @@ public class Board {
 	public void loadConfigFiles(String legendFile, String boardFile) throws BadConfigFormatException {
 		loadLegend(legendFile);
 		loadBoard(boardFile);
-		seen = new boolean[numRows*numColumns];
+		seen = new boolean[numRows * numColumns];
 	}
 
 	public int calcIndex(int row, int column) {
-		return row*numColumns + column;
+		return row * numColumns + column;
 	}
-	public LinkedList<Integer> getAdjList(int index){
+
+	public LinkedList<Integer> getAdjList(int index) {
 		return adjacencies.get(index);
 	}
+
 	public RoomCell getRoomCellAt(int row, int column) {
 		BoardCell cell = cells.get(calcIndex(row, column));
 		if (cell instanceof RoomCell) {
-			return (RoomCell)cell;
-		}
-		else {
+			return (RoomCell) cell;
+		} else {
 			return null;
 		}
 	}
@@ -89,8 +90,7 @@ public class Board {
 				rooms.put(abbr, room);
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("I'm sorry, but the " + legendFile
-					+ " file is a figment of your imagination.");
+			System.out.println("I'm sorry, but the " + legendFile + " file is a figment of your imagination.");
 			System.out.println(e.getMessage());
 		}
 	}
@@ -116,8 +116,7 @@ public class Board {
 					String space = spaces[i];
 					if (space.equalsIgnoreCase("W")) {
 						cells.add(new WalkwayCell(numRows, i % numColumns));
-					}
-					else {
+					} else {
 						if (space.length() > 0 && space.length() <= 2) {
 							char initial = space.charAt(0);
 
@@ -129,17 +128,25 @@ public class Board {
 
 							if (space.length() > 1) {
 								switch (space.charAt(1)) {
-								case 'R': direction = DoorDirection.RIGHT; break;
-								case 'L': direction = DoorDirection.LEFT; break;
-								case 'U': direction = DoorDirection.UP; break;
-								case 'D': direction = DoorDirection.DOWN; break;
-								default: throw new BadConfigFormatException("Invalid room direction '" + space.charAt(1) + "'");
+								case 'R':
+									direction = DoorDirection.RIGHT;
+									break;
+								case 'L':
+									direction = DoorDirection.LEFT;
+									break;
+								case 'U':
+									direction = DoorDirection.UP;
+									break;
+								case 'D':
+									direction = DoorDirection.DOWN;
+									break;
+								default:
+									throw new BadConfigFormatException("Invalid room direction '" + space.charAt(1) + "'");
 								}
 							}
 
 							cells.add(new RoomCell(numRows, i % numColumns, initial, direction));
-						}
-						else {
+						} else {
 							throw new BadConfigFormatException("Wrong length of room '" + space + "'");
 						}
 					}
@@ -148,66 +155,65 @@ public class Board {
 				numRows++;
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("I'm sorry, but the " + boardFile
-					+ " file is a figment of your imagination.");
+			System.out.println("I'm sorry, but the " + boardFile + " file is a figment of your imagination.");
 		}
 
 	}
-	public void calcAdjacencies() {//TODO ripped from IntBoard.java
+
+	public void calcAdjacencies() {// TODO ripped from IntBoard.java
 		for (int i = 0; i < numRows * numColumns; i++) {
 			LinkedList<Integer> cells = new LinkedList<Integer>();
 			int column = i % numColumns;
 			int row = i / numColumns;
-			BoardCell by; 
-			if(column>0){
-				by = getCellAt(i-1);//the cell to the left 
-			
-			if (by.getClass().equals(getCellAt(i).getClass()) || 
-					(getCellAt(i-1).isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.RIGHT)) {
-				cells.add(i - 1);
-			}}
-			if (column < numColumns - 1){
-			by = getCellAt(i+1);//the cell to the right
-			if (by.getClass().equals(getCellAt(i).getClass())|| 
-					(by.isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.LEFT)) { 
-				cells.add(i + 1);
-			}}
-			if (row > 0){
-			by = getCellAt(i-numColumns);//the cell above
-			if (by.getClass().equals(getCellAt(i).getClass())|| 
-					(by.isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.UP)) { 
-				cells.add(i - numColumns);
-			}}
-			if (row < numRows - 1){ 
-			by = getCellAt(i+numColumns);//the cell below
-			if (by.getClass().equals(getCellAt(i).getClass())|| 
-					(by.isDoorway()&&((RoomCell)by).getDoorDirection()==DoorDirection.DOWN)) { 
-				cells.add(i + numColumns);
-			}}
+			BoardCell by;
+			if (column > 0) {
+				by = getCellAt(i - 1);// the cell to the left
+
+				if (by.getClass().equals(getCellAt(i).getClass()) || (getCellAt(i - 1).isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.RIGHT)) {
+					cells.add(i - 1);
+				}
+			}
+			if (column < numColumns - 1) {
+				by = getCellAt(i + 1);// the cell to the right
+				if (by.getClass().equals(getCellAt(i).getClass()) || (by.isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.LEFT)) {
+					cells.add(i + 1);
+				}
+			}
+			if (row > 0) {
+				by = getCellAt(i - numColumns);// the cell above
+				if (by.getClass().equals(getCellAt(i).getClass()) || (by.isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.UP)) {
+					cells.add(i - numColumns);
+				}
+			}
+			if (row < numRows - 1) {
+				by = getCellAt(i + numColumns);// the cell below
+				if (by.getClass().equals(getCellAt(i).getClass()) || (by.isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.DOWN)) {
+					cells.add(i + numColumns);
+				}
+			}
 			adjacencies.put(i, cells);
 		}
 	}
 
-		public void calcTargets(int startCell, int steps) {
-			if(!Thread.currentThread().getStackTrace()[2].getMethodName().equalsIgnoreCase("calcTargets")){
-				//if this is NOT a recurse
-				targets.clear();//reset targets calculated last time
-			}
-			seen[startCell] = true;
-			if (steps == 0) {
-				targets.add(getCellAt(startCell));
-			} else {
-				steps--;
-				for (Integer i : getAdjList(startCell)) {
-					if (seen[i] == false) { // will need extra conditions eventually
-						calcTargets(i, steps);
-					}
+	public void calcTargets(int startCell, int steps) {
+		if (!Thread.currentThread().getStackTrace()[2].getMethodName().equalsIgnoreCase("calcTargets")) {
+			// if this is NOT a recurse
+			targets.clear();// reset targets calculated last time
+		}
+		seen[startCell] = true;
+		if (steps == 0) {
+			targets.add(getCellAt(startCell));
+		} else {
+			steps--;
+			for (Integer i : getAdjList(startCell)) {
+				if (seen[i] == false) { // will need extra conditions eventually
+					calcTargets(i, steps);
 				}
 			}
-			seen[startCell]  = false;
 		}
+		seen[startCell] = false;
+	}
 
-	
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
