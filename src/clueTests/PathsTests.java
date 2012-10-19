@@ -2,6 +2,7 @@ package clueTests;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
@@ -9,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clueGame.Board;
+import clueGame.BoardCell;
 
 public class PathsTests {
 	
@@ -214,60 +216,22 @@ public class PathsTests {
 		assertEquals(3, testList.size());
 	}
 
-	
-	
+	/////////////////////////////////////////
+	//Targets along walkways
 	
 	@Test
-	public void testTargets0_3()
+	public void testTargetsP3()
 	{
-		brd.calcTargets(0, 3);
-		TreeSet<Integer> targets = new TreeSet<Integer>();//= brd.getTargets();
+		brd.calcTargets(brd.calcIndex(2, 15), 3);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) brd.getTargets();
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 14))));
+		assertTrue(targets.contains(9));
+		assertTrue(targets.contains(1));
+		assertTrue(targets.contains(6));
+		assertTrue(targets.contains(3));
+		assertTrue(targets.contains(4));
 		assertEquals(6, targets.size());
-		assertTrue(targets.contains(12));
-		assertTrue(targets.contains(9));
-		assertTrue(targets.contains(1));
-		assertTrue(targets.contains(6));
-		assertTrue(targets.contains(3));
-		assertTrue(targets.contains(4));
 	}
 	
-	@Test
-	public void testTargets2_2()
-	{
-		brd.calcTargets(2, 2);
-		TreeSet<Integer> targets = new TreeSet<Integer>();// = brd.getTargets();
-		assertEquals(4, targets.size());
-		assertTrue(targets.contains(0));
-		assertTrue(targets.contains(5));
-		assertTrue(targets.contains(7));
-		assertTrue(targets.contains(10));
-	}
-	
-	@Test
-	public void testTargets_0_5()
-	{
-		brd.calcTargets(0, 5);
-		TreeSet<Integer> targets = new TreeSet<Integer>();// = brd.getTargets();
-		assertEquals(8, targets.size());
-		assertTrue(targets.contains(1));
-		assertTrue(targets.contains(3));
-		assertTrue(targets.contains(4));
-		assertTrue(targets.contains(6));
-		assertTrue(targets.contains(9));
-		assertTrue(targets.contains(11));
-		assertTrue(targets.contains(12));
-		assertTrue(targets.contains(14));
-	}
-	
-	@Test
-	public void testTargets9_1()
-	{
-		brd.calcTargets(9, 1);
-		TreeSet<Integer> targets = new TreeSet<Integer>();// = brd.getTargets();
-		assertEquals(4, targets.size());
-		for (Integer i : targets){
-			assertTrue(brd.getAdjList(i).contains(9));
-		}
-	}
 
 }

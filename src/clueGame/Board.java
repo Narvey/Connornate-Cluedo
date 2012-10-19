@@ -40,6 +40,7 @@ public class Board {
 	}
 	public LinkedList<Integer> getAdjList(int index){
 		//return adjacencies.get(index);
+		//TODO to make tests pass, use the above line
 		return new LinkedList<Integer>();
 	}
 	public RoomCell getRoomCellAt(int row, int column) {
