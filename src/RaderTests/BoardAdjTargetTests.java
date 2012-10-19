@@ -7,14 +7,16 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 
 public class BoardAdjTargetTests {
 	private static Board board;
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws BadConfigFormatException {
 		board = new Board();
+		board.loadConfigFiles("CR-ClueLegend.txt", "CR-ClueLayout.csv");
 	}
 
 	// Ensure that player does not move around within room

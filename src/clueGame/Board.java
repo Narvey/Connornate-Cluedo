@@ -27,6 +27,7 @@ public class Board {
 		rooms = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
 		seen = new boolean[numRows*numColumns];
+		adjacencies = new HashMap<Integer, LinkedList<Integer>>();
 	}
 
 	public void loadConfigFiles(String legendFile, String boardFile) throws BadConfigFormatException {
