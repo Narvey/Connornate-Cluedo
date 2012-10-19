@@ -37,10 +37,10 @@ public class Board {
 
 	public int calcIndex(int row, int column) {
 		return row*numColumns+column;
-		//TODO we are using rows+cols staring from 1, right?
 	}
 	public LinkedList<Integer> getAdjList(int index){
-		return adjacencies.get(index);
+		//return adjacencies.get(index);
+		return new LinkedList<Integer>();
 	}
 	public RoomCell getRoomCellAt(int row, int column) {
 		BoardCell cell = cells.get(calcIndex(row, column));
