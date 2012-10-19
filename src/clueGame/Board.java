@@ -26,13 +26,13 @@ public class Board {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		targets = new HashSet<BoardCell>();
-		seen = new boolean[numRows*numColumns];
 		adjacencies = new HashMap<Integer, LinkedList<Integer>>();
 	}
 
 	public void loadConfigFiles(String legendFile, String boardFile) throws BadConfigFormatException {
 		loadLegend(legendFile);
 		loadBoard(boardFile);
+		seen = new boolean[numRows*numColumns];
 	}
 
 	public int calcIndex(int row, int column) {
