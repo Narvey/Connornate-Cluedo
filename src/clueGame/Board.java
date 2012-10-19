@@ -39,9 +39,7 @@ public class Board {
 		return row*numColumns+column;
 	}
 	public LinkedList<Integer> getAdjList(int index){
-		//return adjacencies.get(index);
-		//TODO to make tests pass, use the above line
-		return new LinkedList<Integer>();
+		return adjacencies.get(index);
 	}
 	public RoomCell getRoomCellAt(int row, int column) {
 		BoardCell cell = cells.get(calcIndex(row, column));
@@ -182,11 +180,22 @@ public class Board {
 		}
 	}
 
-	public void calcTargets(int index, int moves) {
-		// TODO Auto-generated method stub
+		public void calcTargets(int startCell, int steps) {
+			seen[startCell] = true;
+			if (steps == 0) {
+				targets.add(getCellAt(startCell));
+			} else {
+				steps--;
+				for (Integer i : getAdjList(startCell)) {
+					if (seen[i] == false) { // will need extra conditions eventually
+						calcTargets(i, steps);
+					}
+				}
+			}
+			seen[startCell]  = false;
+		}
 
-	}
-
+	
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}

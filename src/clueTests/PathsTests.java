@@ -20,6 +20,7 @@ public class PathsTests {
 	public static void setUpBeforeClass() throws Exception {
 		board = new Board();
 		board.loadConfigFiles("legend.csv","board.csv");
+		board.calcAdjacencies();
 	}
 	
 	@Test
