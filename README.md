@@ -8,6 +8,6 @@ and a legend.csv file which explains the room abbreviations used in the
 layout. 
  
 Log: 
-# First commits have the board layout. 
-# Subsequent commits have the failing tests version. 
-# Now we are to the point of 
+1. First commits have the board layout. 
+2. Subsequent commits have the failing tests version. 
+3. Now we are to the point of Passing Tests with respect to targets

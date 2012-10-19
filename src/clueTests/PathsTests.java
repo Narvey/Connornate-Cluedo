@@ -261,7 +261,40 @@ public class PathsTests {
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 7))));
 		assertEquals(6, targets.size());
 	}
-
+	
+	// ***********************
+	// Targets entering room
+	@Test
+	public void testTargetsR16() {
+		board.calcTargets(board.calcIndex(15, 17), 2);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 16))));
+		assertEquals(7, targets.size());
+	}
+	
+	@Test
+	public void testTargetsX11() {
+		board.calcTargets(board.calcIndex(10, 23), 3);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 24))));
+		assertEquals(9, targets.size());
+	}
+	
+	@Test
+	public void testTargetsJ16() {
+		board.calcTargets(board.calcIndex(15, 9), 1);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) board.getTargets();
+		assertFalse(targets.contains(board.getCellAt(board.calcIndex(15, 8))));
+		//can't reach with a roll of 1 (door points down)
+		assertEquals(3, targets.size());
+		board.calcTargets(board.calcIndex(15, 9), 3);
+		targets = (HashSet<BoardCell>) board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 8))));
+		//can reach with a roll of 3.
+		assertEquals(8, targets.size());
+	}
+	
+	
 	// ///connor work below this line
 
 }
