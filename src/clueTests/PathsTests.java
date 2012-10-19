@@ -225,13 +225,37 @@ public class PathsTests {
 		brd.calcTargets(brd.calcIndex(2, 15), 3);
 		HashSet<BoardCell> targets = (HashSet<BoardCell>) brd.getTargets();
 		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 14))));
-		assertTrue(targets.contains(9));
-		assertTrue(targets.contains(1));
-		assertTrue(targets.contains(6));
-		assertTrue(targets.contains(3));
-		assertTrue(targets.contains(4));
-		assertEquals(6, targets.size());
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(2, 14))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 14))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(1, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(3, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 16))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(2, 16))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 16))));
+		assertEquals(9, targets.size());
 	}
+	@Test
+	public void testTargetsT7()
+	{
+		brd.calcTargets(brd.calcIndex(2, 15), 3);
+		HashSet<BoardCell> targets = (HashSet<BoardCell>) brd.getTargets();
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 14))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(2, 14))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 14))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(1, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(3, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(5, 15))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(0, 16))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(2, 16))));
+		assertTrue(targets.contains(brd.getCellAt(brd.calcIndex(4, 16))));
+		assertEquals(9, targets.size());
+	}
+	
+	
+	
+	
+	/////connor work below this line
 	
 
 }
