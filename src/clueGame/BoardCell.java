@@ -15,4 +15,8 @@ public abstract class BoardCell {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Cell @ row=" + row + " column=" + column;
+	}
 }

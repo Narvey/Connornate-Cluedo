@@ -33,6 +33,7 @@ public class Board {
 		loadLegend(legendFile);
 		loadBoard(boardFile);
 		seen = new boolean[numRows * numColumns];
+		calcAdjacencies();
 	}
 
 	public int calcIndex(int row, int column) {
@@ -172,6 +173,7 @@ public class Board {
 
 			// only doorways have adjacencies, and they only have one, so short-circuit
 			if (cell.isRoom()) {
+				// if a door was placed facing an edge, this would be invalid, but the board should not be set up that way
 				if (cell.isDoorway()) {
 					switch (((RoomCell) cell).getDoorDirection()) {
 					case RIGHT:
@@ -210,7 +212,7 @@ public class Board {
 			if (row > 0) {
 				adj = getCellAt(i - numColumns);// the cell above
 
-				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.UP)) {
+				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.DOWN)) {
 					cells.add(i - numColumns);
 				}
 			}
@@ -218,7 +220,7 @@ public class Board {
 			if (row < numRows - 1) {
 				adj = getCellAt(i + numColumns);// the cell below
 
-				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.DOWN)) {
+				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.UP)) {
 					cells.add(i + numColumns);
 				}
 			}
@@ -232,12 +234,18 @@ public class Board {
 
 	private void calcTargetsHelper(int startCell, int steps) {
 		seen[startCell] = true;
-		if (steps == 0 || getCellAt(startCell).isDoorway()) {
+		
+		if (steps == 0) {
 			targets.add(getCellAt(startCell));
 		} else {
 			steps--;
 			for (Integer i : getAdjList(startCell)) {
-				if (seen[i] == false) { // will need extra conditions eventually
+				if (seen[i] == false) {
+					// we test for doorways here because we don't want to include them if they are the starting cell of the search
+					if (getCellAt(i).isDoorway()) {
+						targets.add(getCellAt(i));
+					}
+					
 					calcTargetsHelper(i, steps);
 				}
 			}
