@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import clueGame.RoomCell.DoorDirection;
 
@@ -155,59 +155,90 @@ public class Board {
 				numRows++;
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println("I'm sorry, but the " + boardFile + " file is a figment of your imagination.");
+			System.out.println("I'm sorry, but the file " + boardFile + " is a figment of your imagination.");
 		}
 
 	}
 
-	public void calcAdjacencies() {// TODO ripped from IntBoard.java
+	public void calcAdjacencies() {
 		for (int i = 0; i < numRows * numColumns; i++) {
 			LinkedList<Integer> cells = new LinkedList<Integer>();
 			int column = i % numColumns;
 			int row = i / numColumns;
-			BoardCell by;
-			if (column > 0) {
-				by = getCellAt(i - 1);// the cell to the left
+			BoardCell adj;
+			BoardCell cell = getCellAt(i);
 
-				if (by.getClass().equals(getCellAt(i).getClass()) || (getCellAt(i - 1).isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.RIGHT)) {
+			adjacencies.put(i, cells);
+
+			// only doorways have adjacencies, and they only have one, so short-circuit
+			if (cell.isRoom()) {
+				if (cell.isDoorway()) {
+					switch (((RoomCell) cell).getDoorDirection()) {
+					case RIGHT:
+						cells.add(i + 1);
+						break;
+					case LEFT:
+						cells.add(i - 1);
+						break;
+					case UP:
+						cells.add(i - numColumns);
+						break;
+					case DOWN:
+						cells.add(i + numColumns);
+						break;
+					}
+				}
+				continue;
+			}
+
+			if (column > 0) {
+				adj = getCellAt(i - 1);// the cell to the left
+
+				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.RIGHT)) {
 					cells.add(i - 1);
 				}
 			}
+
 			if (column < numColumns - 1) {
-				by = getCellAt(i + 1);// the cell to the right
-				if (by.getClass().equals(getCellAt(i).getClass()) || (by.isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.LEFT)) {
+				adj = getCellAt(i + 1);// the cell to the right
+
+				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.LEFT)) {
 					cells.add(i + 1);
 				}
 			}
+
 			if (row > 0) {
-				by = getCellAt(i - numColumns);// the cell above
-				if (by.getClass().equals(getCellAt(i).getClass()) || (by.isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.UP)) {
+				adj = getCellAt(i - numColumns);// the cell above
+
+				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.UP)) {
 					cells.add(i - numColumns);
 				}
 			}
+
 			if (row < numRows - 1) {
-				by = getCellAt(i + numColumns);// the cell below
-				if (by.getClass().equals(getCellAt(i).getClass()) || (by.isDoorway() && ((RoomCell) by).getDoorDirection() == DoorDirection.DOWN)) {
+				adj = getCellAt(i + numColumns);// the cell below
+
+				if (adj instanceof WalkwayCell || (adj.isDoorway() && ((RoomCell) adj).getDoorDirection() == DoorDirection.DOWN)) {
 					cells.add(i + numColumns);
 				}
 			}
-			adjacencies.put(i, cells);
 		}
 	}
 
 	public void calcTargets(int startCell, int steps) {
-		if (!Thread.currentThread().getStackTrace()[2].getMethodName().equalsIgnoreCase("calcTargets")) {
-			// if this is NOT a recurse
-			targets.clear();// reset targets calculated last time
-		}
+		targets.clear();// reset targets calculated last time
+		calcTargetsHelper(startCell, steps);
+	}
+
+	private void calcTargetsHelper(int startCell, int steps) {
 		seen[startCell] = true;
-		if (steps == 0) {
+		if (steps == 0 || getCellAt(startCell).isDoorway()) {
 			targets.add(getCellAt(startCell));
 		} else {
 			steps--;
 			for (Integer i : getAdjList(startCell)) {
 				if (seen[i] == false) { // will need extra conditions eventually
-					calcTargets(i, steps);
+					calcTargetsHelper(i, steps);
 				}
 			}
 		}
@@ -217,5 +248,4 @@ public class Board {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
-
 }
