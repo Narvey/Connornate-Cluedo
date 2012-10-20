@@ -33,6 +33,7 @@ public class Board {
 	public void loadConfigFiles(String legendFile, String boardFile) throws BadConfigFormatException {
 		loadLegend(legendFile);
 		loadBoard(boardFile);
+		calcAdjacencies();
 	}
 
 	public int calcIndex(int row, int column) {
